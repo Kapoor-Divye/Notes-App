@@ -1,11 +1,25 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { deleteNote, updateNote } from "../features/notes/notesSlice";
+import { deleteNote, updateNote, addNote } from "../features/notes/notesSlice";
 
 function Notes() {
 
   const dispatch = useDispatch();
   const notes = useSelector((state) => state.notes);
+
+  useEffect(() => {
+    const storedNotes = JSON.parse(localStorage.getItem("notes"));
+    if (storedNotes) {
+      storedNotes.forEach(note => {
+        dispatch(addNote(note));
+      });
+    }
+  },[dispatch]);
+
+  useEffect(() => {
+    localStorage.setItem("notes", JSON.stringify(notes.notes));
+  }, [notes]);
+  
 
   const handleDelete = (id) => {
     dispatch(deleteNote({ id }));

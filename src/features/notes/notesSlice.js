@@ -1,7 +1,7 @@
 import { createSlice, nanoid } from "@reduxjs/toolkit";
 
 const initialState = {
-    notes: [{ id: 1, title: "Note 1", content: "This is the first note." }]
+    notes: []
 }
 
 export const notesSlice = createSlice({
